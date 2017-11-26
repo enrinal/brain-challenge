@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <windows.h>
+
 
 #ifndef _BOOLEAN_h
 #define _BOOLEAN_h
@@ -135,6 +137,8 @@ void Help(){
   printf("3. Setiap Scene akan diberikan waktu 5 detik untuk menghitung jumlah '*' yang muncul\n" );
   printf("4. Setelah diawali dengan menampilkan 3 scene, pemain selanjutnya diberikan pertanyaan jumlah '*' yang muncul pada scene pertama\n" );
 	printf("5. Jika jawaban benar, maka akan dimunculukan scene berikutnya , dan diberikan pertanyaan jumlah '*' pada scene kedua dan selanjutnya, jika salah maka permainan berakhir\n");
+	printf("\n");
+
 }
 
 void Scene(int num, List *L){
@@ -142,7 +146,7 @@ void Scene(int num, List *L){
   /*Berguna Untuk menampilkan scene dan memasukan jawaban ke link list*/
   printf("Scene %d\n",num);
   for (i=0;i<15;i++){
-    char simbol = "*$+/-%"[random () % 6];
+    char simbol = "*$+/-%"[rand () % 6];
     printf("%c ",simbol);
 
     if(simbol=='*'){
@@ -150,13 +154,18 @@ void Scene(int num, List *L){
     }
   }
 	printf("\n" );
+	printf("Note : Ingatlah Jumlah '*' Pada Scene Ini\n" );
   InsertLast(L,Alokasi(sum));
+	timer();
+	system("cls");
 }
 
 int main (){
   List L;
-	int pilih,i;
+	int pilih,i,scene=1,jawaban,benar=0,patokan=4;
+	address P;
   CreateList(&L);
+	a:
 	srand(time(NULL));
 	printf("-----Brain Challange------\n");
 	printf("[1]Main\n" );
@@ -165,10 +174,33 @@ int main (){
 	printf("[0]Keluar\n\n" );
 	printf("Pilihan : \n");
 	scanf("%d",&pilih );
+	system("cls");
 	if (pilih==1){
+		for (i=1;i<=3;i++){
+			Scene(i,&L);
 		}
+	while (true){
+		printf("Berapa Jumlah '*' yang muncul pada scene ke-%d ?\n",scene);
+		printf("Jawaban : " );
+		scanf("%d",&jawaban);
+		system("cls");
+		if (jawaban!=Info(First(L))){
+			return false;
+		}else {
+			benar++;
+		}
+		Scene(i,&L);
+		i++;
+		scene++;
+		P=First(L);
+		DelFirst(&L,&P);
+	}
+	}
 	else if(pilih==2){
 		Help();
+		system("pause");
+		system("cls");
+		goto a;
 	}else if (pilih==3){
 	}else {
 		//exit(0);
