@@ -114,6 +114,19 @@ void DelFirst (List *L, address *P){
 	First(*L) = Next(First(*L));
 }
 
+void sec_wait ( int sec ) {
+							clock_t wait_till_end;
+							wait_till_end = clock () + sec * CLOCKS_PER_SEC ;
+							while (clock() < wait_till_end) {}
+}
+
+void timer (){
+	int t;
+	for(t=0;t<5;t++){
+		sec_wait(1);
+	}
+}
+
 void Help(){
   /*Menampilkan Cara Bermain Game Brain Challange*/
   printf("Petunjuk Permainan\n");
@@ -121,30 +134,44 @@ void Help(){
   printf("2. Pada awal permainan akan diberikan 3 scene yang masing masing memuat 15 simbol\n");
   printf("3. Setiap Scene akan diberikan waktu 5 detik untuk menghitung jumlah '*' yang muncul\n" );
   printf("4. Setelah diawali dengan menampilkan 3 scene, pemain selanjutnya diberikan pertanyaan jumlah '*' yang muncul pada scene pertama\n" );
-  printf("5. Jika jawaban benar, maka akan dimunculukan scene berikutnya , dan diberikan pertanyaan jumlah '*' pada scene kedua dan selanjutnya, jika salah maka permainan berakhir\n");
+	printf("5. Jika jawaban benar, maka akan dimunculukan scene berikutnya , dan diberikan pertanyaan jumlah '*' pada scene kedua dan selanjutnya, jika salah maka permainan berakhir\n");
 }
 
 void Scene(int num, List *L){
   int i,sum=0;
-  /*Berguna Untuk menampilkan scene dan mereturn jawabannya*/
-  srand(time(NULL));
+  /*Berguna Untuk menampilkan scene dan memasukan jawaban ke link list*/
   printf("Scene %d\n",num);
   for (i=0;i<15;i++){
     char simbol = "*$+/-%"[random () % 6];
-    printf("%c",simbol);
+    printf("%c ",simbol);
+
     if(simbol=='*'){
       sum++;
     }
   }
-  printf("%d\n",sum );
+	printf("\n" );
   InsertLast(L,Alokasi(sum));
 }
+
 int main (){
   List L;
+	int pilih,i;
   CreateList(&L);
-  Help();
-  printf("\n");
-  Scene(1,&L);
-    printf("\n");
-    printf("%d\n",Info(First(L)));
+	srand(time(NULL));
+	printf("-----Brain Challange------\n");
+	printf("[1]Main\n" );
+	printf("[2]Help\n" );
+	printf("[3]Highscore\n" );
+	printf("[0]Keluar\n\n" );
+	printf("Pilihan : \n");
+	scanf("%d",&pilih );
+	if (pilih==1){
+		}
+	else if(pilih==2){
+		Help();
+	}else if (pilih==3){
+	}else {
+		//exit(0);
+	}
+
 }
