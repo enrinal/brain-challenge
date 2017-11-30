@@ -117,18 +117,12 @@ void DelFirst (List *L, address *P){
 	Dealokasi(P);
 }
 
-void sec_wait ( int sec ) {
+void timer ( int sec ) {
 	clock_t wait_till_end;
 	wait_till_end = clock () + sec * CLOCKS_PER_SEC ;
 	while (clock() < wait_till_end) {}
 }
 
-void timer (){
-	int t;
-	for(t=0;t<5;t++){
-		sec_wait(1);
-	}
-}
 
 void Help(){
   /*Menampilkan Cara Bermain Game Brain Challange*/
@@ -160,7 +154,7 @@ void Scene(int num, List *L){
 	printf("\n" );
 	printf("Note : Ingatlah Jumlah '*' Pada Scene Ini\n" );
   InsertLast(L,Alokasi(sum)); //Sum di alokasi dan dimasukkan di Last
-	timer();
+	timer(5);
 	system("cls");
 }
 
