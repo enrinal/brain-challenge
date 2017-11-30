@@ -143,18 +143,34 @@ void Scene(int num, List *L){
 	/*Sum berfungsi untuk menghitung banyaknya bintang dan memasukkan sum dengan
 	InsertLast*/
 	/*timer() memanggil fungsi timer yang digunakan untuk countdown perscene*/
+
+
   printf("Scene %d\n",num);
-  for (i=0;i<15;i++){
-    char simbol = "*$+/-%"[rand () % 6];//rand() Berguna untuk merandom char
-    printf("%c ",simbol);
-    if(simbol=='*'){
-      sum++;
-    }
-  }
+	if (num>40){//Level diatas 40
+		for (i=0;i<20;i++){
+	    char simbol = "*$+/-%"[rand () % 6];//rand() Berguna untuk merandom char
+	    printf("%c ",simbol);
+	    if(simbol=='*'){
+	      sum++;
+	    }
+	  }
+	}else {
+		for (i=0;i<15;i++){//Level dibawah 40
+	    char simbol = "*$+/-%"[rand () % 6];//rand() Berguna untuk merandom char
+	    printf("%c ",simbol);
+	    if(simbol=='*'){
+	      sum++;
+	    }
+	  }
+	}
 	printf("\n" );
 	printf("Note : Ingatlah Jumlah '*' Pada Scene Ini\n" );
   InsertLast(L,Alokasi(sum)); //Sum di alokasi dan dimasukkan di Last
-	timer(5);
+	if (num<=20){//level dibawah 20
+		timer(5);
+	}else{//Level diatas 20
+		timer(3);
+	}
 	system("cls");
 }
 
