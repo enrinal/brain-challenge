@@ -114,12 +114,13 @@ void DelFirst (List *L, address *P){
   /* First element yg baru adalah suksesor elemen pertama yang lama */
 	*P = First(*L);
 	First(*L) = Next(First(*L));
+	Dealokasi(P);
 }
 
 void sec_wait ( int sec ) {
-							clock_t wait_till_end;
-							wait_till_end = clock () + sec * CLOCKS_PER_SEC ;
-							while (clock() < wait_till_end) {}
+	clock_t wait_till_end;
+	wait_till_end = clock () + sec * CLOCKS_PER_SEC ;
+	while (clock() < wait_till_end) {}
 }
 
 void timer (){
@@ -144,28 +145,33 @@ void Help(){
 void Scene(int num, List *L){
   int i,sum=0;
   /*Berguna Untuk menampilkan scene dan memasukan jawaban ke link list*/
+	/*Num berfungsi untuk menampilkan scene ke-num*/
+	/*Sum berfungsi untuk menghitung banyaknya bintang dan memasukkan sum dengan
+	InsertLast*/
+	/*timer() memanggil fungsi timer yang digunakan untuk countdown perscene*/
   printf("Scene %d\n",num);
   for (i=0;i<15;i++){
-    char simbol = "*$+/-%"[rand () % 6];
+    char simbol = "*$+/-%"[rand () % 6];//rand() Berguna untuk merandom char
     printf("%c ",simbol);
-
     if(simbol=='*'){
       sum++;
     }
   }
 	printf("\n" );
 	printf("Note : Ingatlah Jumlah '*' Pada Scene Ini\n" );
-  InsertLast(L,Alokasi(sum));
+  InsertLast(L,Alokasi(sum)); //Sum di alokasi dan dimasukkan di Last
 	timer();
 	system("cls");
 }
 
 int main (){
   List L;
-	int pilih,i,scene=1,jawaban,benar=0,patokan=4;
+	int pilih,i,scene=1,jawaban,benar=0;
 	address P;
+	boolean a=true;
   CreateList(&L);
-	a:
+
+	a://Fungsi Goto
 	srand(time(NULL));
 	printf("-----Brain Challange------\n");
 	printf("[1]Main\n" );
@@ -175,35 +181,53 @@ int main (){
 	printf("Pilihan : \n");
 	scanf("%d",&pilih );
 	system("cls");
-	if (pilih==1){
+
+	if (pilih==1){//Jika pemain memilih untuk berman
 		for (i=1;i<=3;i++){
-			Scene(i,&L);
+			/*Disini Program akan melakukan pemanggilan 3 scene pertama
+			dan memasukannya ke linklist*/
+			Scene(i,&L);//Program memanggul fungsi scene
 		}
-	while (true){
+	while (a){
 		printf("Berapa Jumlah '*' yang muncul pada scene ke-%d ?\n",scene);
 		printf("Jawaban : " );
 		scanf("%d",&jawaban);
 		system("cls");
-		if (jawaban!=Info(First(L))){
-			return false;
-		}else {
+		if (jawaban==Info(First(L))){
+			/*Jika Jawaban Benar maka variabel benar akan bertambah 1
+			variabel benar digunakan untuk menampung score pemain*/
 			benar++;
+		}else {
+			/*Apabila jawaban salah maka variable a menjadi false, break digunakan
+			untuk memberhentikan loop secara langsung*/
+			a=false;
+			break;
 		}
-		Scene(i,&L);
+		Scene(i,&L); //Memanggil fungsi scene ke-4 dan seterusnya
 		i++;
 		scene++;
+		/*Setelah Scene Ke-4 maka scene pertama dihapus, dan begitu juga untuk scene
+		ke 5 dan seterusnya*/
 		P=First(L);
 		DelFirst(&L,&P);
+		/*Alur programnya adalah InsertLast untuk scene baru, lalu DelFirst untuk
+		scene sebelumnya*/
 	}
 	}
 	else if(pilih==2){
+		/*Pilihan 2 digunakan apabila user ingin melihat cara bermain program
+		akan memanggil Help() untuk menampilkan petunjuk program*/
 		Help();
+		/*Untuk menampilkan "Press Any Key to Continue" jadi user harus mengkil apapun
+		untuk kembali ke menu awal*/
 		system("pause");
-		system("cls");
-		goto a;
+		system("cls"); //Akan Dilakukan clear screen
+		goto a; // Kembali ke menu awal (a:)
 	}else if (pilih==3){
 	}else {
 		//exit(0);
 	}
+	/*Ditampilkan Score yang didapat oleh pengguna*/
+	printf("Score yang anda dapatkan adalah %d\n",scene-1);
 
 }
