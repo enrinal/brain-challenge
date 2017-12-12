@@ -28,6 +28,7 @@ int main (){
 	if (pilih==1){//Jika pemain memilih untuk Bermain
 		puts("Please Enter Name: ");
 		scanf("%s", &name);
+    system("cls");
 		for (i=1;i<=3;i++){
 			/*Disini Program akan melakukan pemanggilan 3 scene pertama
 			dan memasukannya ke linklist*/
@@ -74,6 +75,9 @@ int main (){
 
 	}else if (pilih==3){
 		highscore();
+    system("pause");
+		system("cls"); //Akan Dilakukan clear screen
+		goto a; // Kembali ke menu awal (a:)
 	}
 
 	/*Ditampilkan Score yang didapat oleh pengguna*/
