@@ -1,7 +1,9 @@
 #include "game.h"
 #include<string.h>
 
-void timer ( int sec ) { //Fungsi yang digunakan untuk countdown
+void timer ( int sec ) {
+	//Fungsi yang digunakan untuk countdown
+	//Digunakan pada scene
 	clock_t wait_till_end;
 	wait_till_end = clock () + sec * CLOCKS_PER_SEC ;
 	while (clock() < wait_till_end) {}
@@ -30,7 +32,7 @@ void Scene(int num, List *L){
 	/*Num berfungsi untuk menampilkan scene ke-num*/
 	/*Sum berfungsi untuk menghitung banyaknya bintang dan memasukkan sum dengan
 	InsertLast*/
-	/*timer() memanggil fungsi timer yang digunakan untuk countdown perscene*/
+	/*timer() memanggil fungsi timer yang digunakan untuk countdown per-scene*/
 	if (num==15){
 		//Ketika masuk ke scene ke-15 maka permaian akan masuk ke Stage 2
 		//Stage 2 menampilkan 15 simbol dengan waktu countdown 3 detik

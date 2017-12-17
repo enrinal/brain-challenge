@@ -8,8 +8,7 @@
 
 int main (){
   List L;
-	int i,scene=1,jawaban,benar=0;
-  char pilih;
+	int i,scene=1,jawaban,benar=0,pilih;
 	char name[10];
 	address P;
 	boolean a=true;
@@ -24,10 +23,11 @@ int main (){
 	printf("\t\t\t[3]Highscore\n" );
 	printf("\t\t\t[0]Keluar\n\n" );
 	printf("\t\t\tPilihan : ");
-	scanf("  %c",&pilih );
+	scanf("  %d",&pilih );
+  fflush(stdin);
 	system("cls");
 
-	if (pilih=='1'){//Jika pemain memilih untuk Bermain
+	if (pilih==1){//Jika pemain memilih untuk Bermain
 		printf("Masukan Nama : ");
 		scanf("%s", &name);
     system("cls");
@@ -63,9 +63,11 @@ int main (){
 	}
 	printf("Score yang anda dapatkan adalah %d\n",scene-1);
 	tulisscore(name,(scene-1));
+  system("pause");
+
 	}
 
-	else if(pilih=='2'){
+	else if(pilih==2){
 		/*Pilihan 2 digunakan apabila user ingin melihat cara bermain program
 		akan memanggil Help() untuk menampilkan petunjuk program*/
 		Help();
@@ -75,12 +77,12 @@ int main (){
 		system("cls"); //Akan Dilakukan clear screen
 		goto a; // Kembali ke menu awal (a:)
 
-	}else if (pilih=='3'){
+	}else if (pilih==3){
 		highscore();//Memanggul fungsi highcore untuk menuliskan highscore pemain
     system("pause");
 		system("cls"); //Akan Dilakukan clear screen
 		goto a; // Kembali ke menu awal (a:)
-	}else if (pilih=='0'){
+	}else if (pilih==0){
     exit; // Exit Program
   }else {
     goto a; // Input selain diatas, akan kembali lagi ke a:

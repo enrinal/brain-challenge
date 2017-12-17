@@ -68,6 +68,7 @@ void InsertLast (List *L, address P){
 			Last = Next(Last);
 		}
 		InsertAfter(&(*L),P,Last);
+
 	}
 }
 
